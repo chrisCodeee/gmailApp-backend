@@ -1,12 +1,9 @@
-const { validateUser, GmailUSer } = require("../models/user");
+const { GmailUSer } = require("../models/user");
 const bcrypt = require("bcrypt");
 const lodash = require("lodash");
 
 const registerUserController = async (req, res) => {
-	const { error } = validateUser(req.body);
-	if (error) return res.status(400).send(error.details[0].message);
-
-	let user = await GmailUSer.findOne({ email: req.body.email });
+	let user = await GmailUSer.findOne({ username: req.body.username });
 	if (user) return res.status(400).send("User already registered");
 
 	user = new GmailUSer(req.body);
@@ -16,7 +13,15 @@ const registerUserController = async (req, res) => {
 	user.password = await bcrypt.hash(user.password, salt);
 
 	await user.save();
-	res.send(lodash.pick(user, ["_id", "name", "email"]));
+	res.send(lodash.pick(user, ["_id", "firstName", "username"]));
 };
 
-module.exports = registerUserController;
+const updateUser = async (req, res) => {
+	let user = await GmailUSer.findByIdAndUpdate(req.params._id, req.body, { new: true });
+	// if (user) return res.status(400).send("User already registered");
+
+	res.send(lodash.pick(user, ["_id", "firstName", "username"]));
+};
+
+module.exports.registerUserController = registerUserController;
+module.exports.updateUser = updateUser;
