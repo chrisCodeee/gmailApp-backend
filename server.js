@@ -7,5 +7,6 @@ app.use(require("cors")());
 app.use(express.json());
 
 app.use("/users", require("./routes/users"));
+app.use("/", require("./routes/messages"));
 
 app.listen(PORT, () => console.log(`App started on port ${PORT}`));
