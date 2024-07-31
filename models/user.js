@@ -27,6 +27,8 @@ const GmailUserSchema = mongoose.Schema({
 	},
 	username: {
 		type: String,
+		trim: true,
+		lowercase: true,
 		// unique: true,
 	},
 
