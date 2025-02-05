@@ -7,6 +7,7 @@ const checkEmail = async (req, res) => {
 	if (user) return res.status(400).send("User already registered");
 
 	res.send(lodash.pick(user, ["_id", "firstName", "lastName", "username"]));
+	// res.send("Hello world");
 };
 
 const registerUserController = async (req, res) => {

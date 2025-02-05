@@ -12,4 +12,5 @@ app.use(express.json());
 app.use("/users", require("./routes/users"));
 app.use("/", require("./routes/messages"));
 
-app.listen(PORT, "0.0.0.0", () => console.log(`App started on port ${PORT}`));
+// app.listen(PORT, "0.0.0.0", () => console.log(`App started on port ${PORT}`));
+app.listen(PORT, () => console.log(`App started on port ${PORT}`));
